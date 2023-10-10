@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import urbina.isaac.dictionary.repository.DataMuseRepository
 
 internal class MainActivityViewModel(
-    private val dataRepository: DataMuseRepository,
+    private val dataRepository: DataMuseRepository = DataMuseRepository.instance(),
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
