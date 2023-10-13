@@ -7,10 +7,8 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import urbina.isaac.dictionary.ui.composable.ScreenSetup
 import urbina.isaac.dictionary.ui.theme.DictionaryTheme
 import urbina.isaac.dictionary.ui.theme.MainActivityViewModel
 
@@ -25,29 +23,9 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    ScreenSetup(viewModel)
                 }
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.search("android query")
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!", modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    DictionaryTheme {
-        Greeting("Android")
     }
 }
