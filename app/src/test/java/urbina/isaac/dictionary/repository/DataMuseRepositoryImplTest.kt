@@ -5,7 +5,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.unmockkObject
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert
@@ -35,26 +34,25 @@ class DataMuseRepositoryImplTest {
 
     @Test
     fun `search retrieves data from retrofit service`() = runBlocking {
-        repository.search("test").collect {}
-        coVerify { retrofitService.search(any()) }
+        repository.search("test", 1)
+        coVerify { retrofitService.search("test", 1) }
     }
 
     @Test
     fun `search when network call fails, throws exception`() = runBlocking {
-        coEvery { retrofitService.search(any()) } throws IOException()
+        coEvery { retrofitService.search("test", 1) } throws IOException()
         var exception: Throwable? = null
-        repository.search("test").catch {
-            exception = it
-        }.collect { }
+        try {
+            repository.search("test", 1)
+        } catch (ex: Exception) {
+            exception = ex
+        }
         Assert.assertNotNull(exception)
     }
 
     @Test
     fun `search when network call succeeds, collects results`() = runBlocking {
-        var result: List<APIResponse?>? = null
-        repository.search("test").collect {
-            result = it
-        }
+        val result: List<APIResponse?>? = repository.search("test", 1)
         Assert.assertNotNull(result)
     }
 }

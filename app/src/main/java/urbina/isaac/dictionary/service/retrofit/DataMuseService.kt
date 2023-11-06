@@ -8,6 +8,7 @@ interface DataMuseService {
 
     @GET("words")
     suspend fun search(
-        @Query("ml") query: String
+        @Query("ml") query: String,
+        @Query("index") page: Int
     ): List<APIResponse?>?
 }
